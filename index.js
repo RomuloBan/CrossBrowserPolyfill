@@ -3,7 +3,11 @@
 // the interface
 var CrossBrowserUtils = {
 	addListener: null,
-	removeListener: null
+	removeListener: null,
+	preventDefault: null,
+	stopPropagation: null,
+	getEvent: null,
+	getTarget: null
 };
 
 
@@ -37,6 +41,31 @@ var CrossBrowserUtils = {
 		};
 
 	}
+
+	CBUtils.preventDefault = function(event) {
+		if(event.preventDefault) {
+			event.preventDefault();
+		} else {
+			event.returnValue = false;
+		}
+	}
+
+	CBUtils.stopPropagation = function(event) {
+		if(event.stopPropagation) {
+			event.stopPropagation();
+		} else {
+			event.cancelBubble = true;
+		}
+	}
+
+	CBUtils.getEvent = function(event) {
+		return event ? event : window.event;
+	}
+
+	CBUtils.getTarget = function(event) {
+		return event.target || event.srcElement;
+	}
+
 	
 
 
